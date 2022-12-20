@@ -37,5 +37,7 @@ This project is the Minesweeper game written in C++ language. It has all of the 
 ## Contributor
 
 22125050 - Nguyen Thanh Phuoc Loc
+
 ntploc21@gmail.com
+
 https://www.facebook.com/ntploc.21/
