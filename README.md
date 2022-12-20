@@ -1,61 +1,41 @@
------------------------------------
+# CS161 Project: Minesweeper
 
-_DISCLAIMER:_
+C++ project for CS161 Course.
 
-Welcome to **raylib game template**!
+## Introduction
 
-This template provides a base structure to start developing a small raylib game in plain C. The repo is also pre-configured with a default `LICENSE` (zlib/libpng) and a `README.md` (this one) to be properly filled by users. Feel free to change the LICENSE as required.
-
-All the sections defined by `$(Data to Fill)` are expected to be edited and filled properly. It's recommended to delete this disclaimer message after editing this `README.md` file.
-
-This template has been created to be used with raylib (www.raylib.com) and it's licensed under an unmodified zlib/libpng license.
-
-_Copyright (c) 2014-2022 Ramon Santamaria ([@raysan5](https://twitter.com/raysan5))_
-
------------------------------------
-
-## $(Game Title)
-
-![$(Game Title)](screenshots/screenshot000.png "$(Game Title)")
-
-### Description
-
-$(Your Game Description)
+This project is the Minesweeper game written in C++ language. It has all of the features of the Minesweeper game on https://minesweeper.online/.
 
 ### Features
 
- - $(Game Feature 01)
- - $(Game Feature 02)
- - $(Game Feature 03)
+- Drawing the board (including cells, mines and flags).
+- Changing the state of each cell when it is selected.
+- Timer.
+- Functions: new game, change board dimensions. Select a function from console screen.
+- Randomize positions of the mines.
+- Receiving new position of the pointer (to select a cell) from console screen.
+- Saving the current state of the board and loading in the next playing session.
+- Saving high scores.
 
-### Controls
+## Requirements
 
-Keyboard:
- - $(Game Control 01)
- - $(Game Control 02)
- - $(Game Control 03)
+- C++20 (GNU GCC 11.3.0)
+- CMake 3.14 or above
+- [Raylib](https://github.com/raysan5/raylib)
+- [Raygui](https://github.com/raysan5/raygui) (already included in this repo)
+- [yaml-cpp](https://github.com/jbeder/yaml-cpp)
 
-### Screenshots
+## Building
 
-_TODO: Show your game to the world, animated GIFs recommended!._
+- Clone this repository
+- Install [Raylib on your platform](https://github.com/raysan5/raylib#build-and-installation)
+- Install [yaml-cpp on your platform](https://github.com/jbeder/yaml-cpp/blob/master/install.txt)
+- `cmake -S . -B ./build`
+- `make -C build`
+- The executable `minesweeper` will appear.
 
-### Developers
+## Contributor
 
- - $(Developer 01) - $(Role/Tasks Developed)
- - $(Developer 02) - $(Role/Tasks Developed)
- - $(Developer 03) - $(Role/Tasks Developed)
-
-### Links
-
- - YouTube Gameplay: $(YouTube Link)
- - itch.io Release: $(itch.io Game Page)
- - Steam Release: $(Steam Game Page)
-
-### License
-
-This game sources are licensed under an unmodified zlib/libpng license, which is an OSI-certified, BSD-like license that allows static linking with closed source software. Check [LICENSE](LICENSE) for further details.
-
-$(Additional Licenses)
-
-*Copyright (c) $(Year) $(User Name) ($(User Twitter/GitHub Name))*
-"# cs161-minesweeper" 
+22125050 - Nguyen Thanh Phuoc Loc
+ntploc21@gmail.com
+https://www.facebook.com/ntploc.21/
