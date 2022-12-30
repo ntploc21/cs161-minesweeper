@@ -11,7 +11,6 @@
 class Game {
 private:
     bool closed = false;
-
     Gameplay gameplay = Gameplay();
     MenuScreen menu_screen = MenuScreen();
     GameSelectionScreen game_selection_screen = GameSelectionScreen();
