@@ -25,7 +25,7 @@ void GameSelectionScreen::DrawMainScreen(Game *game) {
     bool cancel_selected = GuiButton({kCancelCorner_x, kCancelCorner_y, kSmallButtonWidth, kSmallButtonHeight},
                                 "Cancel");
     if(beginner_selected) {
-        
+        game->ScreenToGameplay();
     } else if(intermdiate_selected) {
         
     } else if(expert_selected) {

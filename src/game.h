@@ -4,6 +4,7 @@
 #include "screen.h"
 #include "menu_screen.h"
 #include "game_selection_screen.h"
+#include "gameplay.h"
 
 #include "globals.h"
 
@@ -11,6 +12,7 @@ class Game {
 private:
     bool closed = false;
 
+    Gameplay gameplay = Gameplay();
     MenuScreen menu_screen = MenuScreen();
     GameSelectionScreen game_selection_screen = GameSelectionScreen();
 
