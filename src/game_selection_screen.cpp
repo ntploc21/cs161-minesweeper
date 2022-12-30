@@ -1,9 +1,10 @@
 #include "game_selection_screen.h"
 
 #include "game.h"
+#include "globals.h"
+
 #include "raylib.h"
 #include "raygui.h"
-
 
 void GameSelectionScreen::Interact(Game *game) {
 
@@ -25,11 +26,17 @@ void GameSelectionScreen::DrawMainScreen(Game *game) {
     bool cancel_selected = GuiButton({kCancelCorner_x, kCancelCorner_y, kSmallButtonWidth, kSmallButtonHeight},
                                 "Cancel");
     if(beginner_selected) {
-        game->ScreenToGameplay();
+        game->ScreenToGameplay(global::kBeginnerTableWidth,
+                                global::kBeginnerTableHeight,
+                                global::kBeginnerTableMines);
     } else if(intermdiate_selected) {
-        
+        game->ScreenToGameplay(global::kIntermediateTableWidth,
+                                global::kIntermediateTableHeight,
+                                global::kIntermediateTableMines);
     } else if(expert_selected) {
-        
+        game->ScreenToGameplay(global::kExpertTableWidth,
+                                global::kExpertTableHeight,
+                                global::kExpertTableMines);
     } else if(custom_selected) {
         custom_mode = true;
     } else if(cancel_selected) {

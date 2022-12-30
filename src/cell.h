@@ -1,6 +1,8 @@
 #ifndef CELL_H
 #define CELL_H
 
+#include "sprite.h"
+
 enum class CellState {
     Opened,
     Closed,
@@ -9,13 +11,17 @@ enum class CellState {
 
 class Cell {
 private:
+    Sprite *sprite;
+
     int value;
     CellState cell_state;
 
     int screen_pos_x;
     int screen_pos_y;
 public:
-    static constexpr int bomb_cell_value = -1;
+    static constexpr int kCellSize = 30;
+    static constexpr int kBombCellValue = -1;
+    static constexpr int kExplodedCellValue = -2;
 
     void SetScreenPos(int x, int y);
 
@@ -24,7 +30,13 @@ public:
     CellState GetCellState() const;
 
     bool Reveal();
-    void ToggleFlagged();
+    bool ToggleFlagged();
+    void SetExploded();
+
+    void DrawCell();
+
+    void SetSprite(Sprite *sprite);
+
     Cell();
 };
 

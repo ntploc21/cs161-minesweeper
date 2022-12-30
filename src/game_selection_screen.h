@@ -34,6 +34,7 @@ private:
     /* */
     bool custom_mode = false;
 
+    /* */
 public:
     void Interact(Game *game);
 

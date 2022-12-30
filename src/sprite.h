@@ -6,6 +6,10 @@
 
 class Sprite {
 private:
+    const char backgroundPath[100] = "assets/background.png";
+    Image image_background;
+    Texture2D background_texture;
+    
     const char spritePath[100] = "assets/sprites.png";
     Image image_sprite;
 
@@ -14,8 +18,8 @@ private:
 
     const int kCounterSpriteWidth = 12;
     const int kCounterSpriteHeight = 22;
-    const int kCounterWidth = 12;
-    const int kCounterHeight = 22;
+    const int kCounterWidth = 24;
+    const int kCounterHeight = 44;
     
     /* */
     const int kEmptyCellSpritesStartFromOne_x = 0;
@@ -62,6 +66,8 @@ private:
 public:
 
     Sprite();
+
+    Texture2D GetBackground();
 
     Texture2D GetTextureCell(int x, int y);
     Texture2D GetTexture(int x, int y, int spriteWidth, int spriteHeight, int actualWidth, int actualHeight);

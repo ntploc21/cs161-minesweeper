@@ -23,7 +23,7 @@ public:
     // Game screen
     void ScreenToMenu();
     void ScreenToGameSelection();
-    void ScreenToGameplay();
+    void ScreenToGameplay(int width, int height, int mines);
     void ScreenToContinue();
     void ScreenToSettings();
 
