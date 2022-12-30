@@ -1,30 +1,18 @@
 #include "screen.h"
 
-namespace global {
-    static ScreenType screen_type = ScreenType::kMenu;
+#include "raylib.h"
+//#define RAYGUI_IMPLEMENTATION
+#include "raygui.h"
 
-    // default screen
-    void ScreenToMenu() {
-        screen_type = ScreenType::kMenu;
-    }
+#include "game.h"
 
-    void ScreenToGameSelection() {
-        screen_type = ScreenType::kGameplay;
-    }
+void Screen::Interact(Game *game) {
 
-    void ScreenToGameplay() {
-        screen_type = ScreenType::kGameplay;
-    }
+}
 
-    void ScreenToContinue() {
-        screen_type = ScreenType::kGameplay;
-    }
+void Screen::Draw(Game *game) {
+}
 
-    void ScreenToSettings() {
-        screen_type = ScreenType::kSettings;
-    }
+Screen::Screen() {
 
-    ScreenType GetScreenType() {
-        return screen_type;
-    }
 }
