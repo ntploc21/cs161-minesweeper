@@ -44,7 +44,8 @@ void Game::ScreenToGameSelection() {
     screen = &game_selection_screen;
 }
 
-void Game::ScreenToGameplay() {
+void Game::ScreenToGameplay(int width, int height, int mines) {
+    gameplay.Start(width, height, mines);
     screen = &gameplay;
 }
 //

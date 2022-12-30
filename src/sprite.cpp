@@ -3,6 +3,10 @@
 
 Sprite::Sprite() {}
 
+Texture2D Sprite::GetBackground() {
+    return background_texture;
+}
+
 Texture2D Sprite::GetTexture(int x, int y, int spriteWidth, int spriteHeight, int actualWidth, int actualHeight) {
     Image object_image_sprite = ImageFromImage(image_sprite, {
             x,
@@ -10,7 +14,7 @@ Texture2D Sprite::GetTexture(int x, int y, int spriteWidth, int spriteHeight, in
             spriteWidth,
             spriteHeight
         });
-    ImageResize(&object_image_sprite, kCellSize, kCellSize);
+    ImageResize(&object_image_sprite, actualWidth, actualHeight);
 
     Texture2D object_sprite = LoadTextureFromImage(object_image_sprite);
     return object_sprite;    
@@ -26,9 +30,12 @@ Texture2D Sprite::GetTextureCell(int x, int y) {
 }
 
 void Sprite::Initialize() { // load sprites
-    //std::cout << GetWorkingDirectory << std::endl;
+    //std::cout << GetWorkingDirectory() << std::endl;
+    image_background = LoadImage(backgroundPath);
+    background_texture = LoadTextureFromImage(image_background);
 
-    image_sprite = LoadImage("assets/sprites.png");
+
+    image_sprite = LoadImage(spritePath);
     /* */
     int max_neighboring_bombs = 8;
     for(int i=1;i<=max_neighboring_bombs;i++) {
