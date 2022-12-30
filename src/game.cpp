@@ -9,7 +9,6 @@
 void Game::InitGame() {
     InitWindow(global::kScreenWidth, global::kScreenHeight, "CS161 - Minesweeper");
     SetTargetFPS(global::kFramesPerSecond);
-
     gameplay.Initialize();
 }
 
@@ -49,7 +48,6 @@ void Game::ScreenToGameplay(int width, int height, int mines) {
     gameplay.Start(width, height, mines);
     screen = &gameplay;
 }
-
 //
 
 Game::Game() {
