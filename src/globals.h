@@ -18,6 +18,9 @@ namespace global {
     constexpr int kExpertTableWidth = 24;
     constexpr int kExpertTableHeight = 20;
     constexpr int kExpertTableMines = 99;
+
+    constexpr int kMaxWidth = 25;
+    constexpr int kMaxHeight = 20;
 }
 
 #endif // GLOBAL_H

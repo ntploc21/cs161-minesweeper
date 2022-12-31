@@ -12,22 +12,20 @@ void MenuScreen::Draw(Game *game) {
     ClearBackground(WHITE);
 
     DrawText("Minesweeper", kGameTitleCorner_x, kGameTitleCorner_y, kGameTitleFontSize, BLACK);
+    
+    bool new_game_selected = DrawButton(kPlayCorner_x, kPlayCorner_y, kPlayButton, kPlayText);
 
-    bool new_game_selected = GuiButton({kPlayCorner_x, kPlayCorner_y, kLargeButtonWidth, kLargeButtonHeight},
-                                "New game");
-        
-    bool continue_selected = GuiButton({kContinueCorner_x, kContinueCorner_y, kLargeButtonWidth, kLargeButtonHeight},
-                                "Continue");
-    bool settings_selected = GuiButton({kSettingsCorner_x, kSettingsCorner_y, kSmallButtonWidth, kSmallButtonHeight},
-                                "Options");
-    bool quit_selected = GuiButton({kQuitGameCorner_x, kQuitGameCorner_y, kSmallButtonWidth, kSmallButtonHeight},
-                                "Quit game");
+    bool continue_selected = DrawButton(kContinueCorner_x, kContinueCorner_y, kContinueButton, kContinueText);
+    
+    bool leader_board_selected = DrawButton(kHighScoreCorner_x, kHighScoreCorner_y, kHighScoreButton, kHighScoreText);
+    
+    bool quit_selected = DrawButton(kQuitGameCorner_x, kQuitGameCorner_y, kQuitGameButton, kQuiteGameText);
 
     if(new_game_selected) {
-        game->ScreenToGameSelection();
+        game->ScreenToGameSelection(false);
     } else if(continue_selected) {
         
-    } else if(settings_selected) {
+    } else if(leader_board_selected) {
         
     } else if(quit_selected) {
         game->EndGame();

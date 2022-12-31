@@ -7,6 +7,7 @@
 
 enum class GameState {
     Playing,
+    Paused,
     Won,
     Lost
 };
@@ -19,6 +20,9 @@ private:
     
     const int kCounterBomb_x = 22;
     const int kCounterBom_y = 20;
+
+    const int kFace_x = 576;
+    const int kFace_y = 19;
 
     /* */
     GameState game_state;
@@ -36,10 +40,15 @@ private:
 
     const int kCounterWidth = 24;
     const int kCounterHeight = 44;
+
+    bool DrawFace();
     void DrawCounter(int value, int x, int y);
 public:
+    Table& GetTable();
+
     void Interact(Game *game);
 
+    bool DrawFrame();
     void Draw(Game *game);
 
     Gameplay();

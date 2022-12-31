@@ -186,6 +186,10 @@ int Table::RevealCell(int x, int y, bool first_click) {
     if(clicked_on_bomb) {
         cell.SetExploded();
         for(int i=0;i<board_width * board_height;i++) {
+            if(board[i].GetValue() == Cell::kBombCellValue &&
+                board[i].GetCellState() == CellState::Flagged) {
+                    continue;
+                }
             board[i].Reveal();
         }
         return -1;
@@ -194,6 +198,7 @@ int Table::RevealCell(int x, int y, bool first_click) {
     if(cell.GetValue() == 0) {
         ClearNearbyCells(x, y);
     }
+    CalculateNumFlagged();
 
     int num_revealed = 0;
     for(int i=0;i<board_width * board_height;i++) {
@@ -202,8 +207,6 @@ int Table::RevealCell(int x, int y, bool first_click) {
     if(num_revealed == board_width * board_height - num_bomb) {
         return 1;
     }
-
-    CalculateNumFlagged();
     return 0;
 }
 
@@ -217,6 +220,7 @@ int Table::GetNumBomb() {
     return num_bomb;
 }
 void Table::CalculateNumFlagged() {
+    num_flagged = 0;
     for(int i=0;i<board_width * board_height;i++) {
         num_flagged+= board[i].GetCellState() == CellState::Flagged;
     }

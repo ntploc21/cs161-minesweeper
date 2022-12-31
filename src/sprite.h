@@ -20,6 +20,9 @@ private:
     const int kCounterSpriteHeight = 22;
     const int kCounterWidth = 24;
     const int kCounterHeight = 44;
+
+    const int kFaceSpriteSize = 24;
+    const int kFaceSize = 48;
     
     /* */
     const int kEmptyCellSpritesStartFromOne_x = 0;
@@ -63,6 +66,23 @@ private:
     const int kCounterUndefinedSprite_y = 0;
     Texture2D CounterUndefined;
 
+    //
+    const int kFaceNeutralSprite_x = 0;
+    const int kFaceNeutralSprite_y = 24;
+    Texture2D FaceNeutral;
+
+    const int kFaceNeutralClickedSprite_x = 25;
+    const int kFaceNeutralClickedSprite_y = 24;
+    Texture2D FaceNeutralClicked;
+
+    const int kFaceWonSprite_x = 75;
+    const int kFaceWonSprite_y = 24;
+    Texture2D FaceWon;
+
+    const int kFaceLostSprite_x = 100;
+    const int kFaceLostSprite_y = 24;
+    Texture2D FaceLost;
+
 public:
 
     Sprite();
@@ -70,7 +90,9 @@ public:
     Texture2D GetBackground();
 
     Texture2D GetTextureCell(int x, int y);
+    Texture2D GetTextureFace(int x, int y);
     Texture2D GetTexture(int x, int y, int spriteWidth, int spriteHeight, int actualWidth, int actualHeight);
+    
     void Initialize();
 
     //
@@ -83,6 +105,11 @@ public:
     Texture2D GetFlaggedCell();
     Texture2D GetBombCell();
     Texture2D GetExplodedCell();
+
+    Texture2D GetFaceNeutral();
+    Texture2D GetFaceNeutralClicked();
+    Texture2D GetFaceWon();
+    Texture2D GetFaceLost();
 };
 
 #endif // SPRITE_H

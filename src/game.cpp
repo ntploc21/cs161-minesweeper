@@ -40,13 +40,26 @@ void Game::ScreenToMenu() {
     screen = &menu_screen;
 }
 
-void Game::ScreenToGameSelection() {
+void Game::ScreenToGameSelection(bool in_game = false) {
+    game_selection_screen.SetIngame(in_game);
     screen = &game_selection_screen;
 }
 
 void Game::ScreenToGameplay(int width, int height, int mines) {
     gameplay.Start(width, height, mines);
+    ScreenToGameplay();
+}
+
+void Game::ScreenToGameplay() {
     screen = &gameplay;
+}
+
+void Game::ScreenToIngameMenu() {
+    screen = &gameplay_menu_screen;
+}
+
+Gameplay& Game::GetGameplay() {
+    return gameplay;
 }
 //
 

@@ -5,17 +5,6 @@
 
 class MenuScreen : public Screen {
 private:
-    enum class ButtonType {
-        kLargeButton,
-        kSmallButton
-    };
-
-    const int kLargeButtonWidth = 600;
-    const int kLargeButtonHeight = 50;
-
-    const int kSmallButtonWidth = 295;
-    const int kSmallButtonHeight = 50;
-
     const int kGameTitleCorner_x = 370;
     const int kGameTitleCorner_y = 200;
     const int kGameTitleFontSize = 72;
@@ -23,18 +12,22 @@ private:
     const int kPlayCorner_x = 300;
     const int kPlayCorner_y = 330;
     const ButtonType kPlayButton = ButtonType::kLargeButton;
+    const char kPlayText[100] = "New game";
 
     const int kContinueCorner_x = 300;
     const int kContinueCorner_y = 390;
     const ButtonType kContinueButton = ButtonType::kLargeButton;
+    const char kContinueText[100] = "Continue";
 
-    const int kSettingsCorner_x = 300;
-    const int kSettingsCorner_y = 450;
-    const ButtonType kSettingsButton = ButtonType::kSmallButton;
+    const int kHighScoreCorner_x = 300;
+    const int kHighScoreCorner_y = 450;
+    const ButtonType kHighScoreButton = ButtonType::kSmallButton;
+    const char kHighScoreText[100] = "Leaderboard";
 
     const int kQuitGameCorner_x = 605;
     const int kQuitGameCorner_y = 450;
     const ButtonType kQuitGameButton = ButtonType::kSmallButton;
+    const char kQuiteGameText[100] = "Quit game";
 
 public:
     //void interact();

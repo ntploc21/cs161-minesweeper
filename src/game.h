@@ -5,6 +5,7 @@
 #include "menu_screen.h"
 #include "game_selection_screen.h"
 #include "gameplay.h"
+#include "gameplay_menu_screen.h"
 
 #include "globals.h"
 
@@ -14,6 +15,7 @@ private:
     Gameplay gameplay = Gameplay();
     MenuScreen menu_screen = MenuScreen();
     GameSelectionScreen game_selection_screen = GameSelectionScreen();
+    GameplayMenuScreen gameplay_menu_screen = GameplayMenuScreen();
 
     Screen *screen = &menu_screen;
 public:
@@ -21,10 +23,12 @@ public:
     
     // Game screen
     void ScreenToMenu();
-    void ScreenToGameSelection();
+    void ScreenToGameSelection(bool in_game);
     void ScreenToGameplay(int width, int height, int mines);
+    void ScreenToGameplay();
     void ScreenToContinue();
     void ScreenToSettings();
+    void ScreenToIngameMenu();
 
     void EndGame();
     void CloseGameWindow();
@@ -32,6 +36,8 @@ public:
     
     void InitGame();
     void RenderGame();
+
+    Gameplay& GetGameplay();
     // 
 };
 

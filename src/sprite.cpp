@@ -29,6 +29,15 @@ Texture2D Sprite::GetTextureCell(int x, int y) {
         kCellSize);
 }
 
+Texture2D Sprite::GetTextureFace(int x, int y) {
+    return GetTexture(x,
+        y,
+        kFaceSpriteSize,
+        kFaceSpriteSize,
+        kFaceSize,
+        kFaceSize);
+}
+
 void Sprite::Initialize() { // load sprites
     //std::cout << GetWorkingDirectory() << std::endl;
     image_background = LoadImage(backgroundPath);
@@ -99,6 +108,27 @@ void Sprite::Initialize() { // load sprites
         kCounterWidth,
         kCounterHeight
     );
+
+    /* */
+    FaceNeutral = GetTextureFace(
+        kFaceNeutralSprite_x,
+        kFaceNeutralSprite_y
+    );
+    
+    FaceNeutralClicked = GetTextureFace(
+        kFaceNeutralClickedSprite_x,
+        kFaceNeutralClickedSprite_y
+    );
+
+    FaceWon = GetTextureFace(
+        kFaceWonSprite_x,
+        kFaceWonSprite_y
+    );
+
+    FaceLost = GetTextureFace(
+        kFaceLostSprite_x,
+        kFaceLostSprite_y
+    );
 }
 
 Texture2D Sprite::GetCounterNumber(int number) {
@@ -131,4 +161,20 @@ Texture2D Sprite::GetBombCell() {
 
 Texture2D Sprite::GetExplodedCell() {
     return ExplodedCell;
+}
+
+Texture2D Sprite::GetFaceNeutral() {
+    return FaceNeutral;
+}
+
+Texture2D Sprite::GetFaceNeutralClicked() {
+    return FaceNeutralClicked;
+}
+
+Texture2D Sprite::GetFaceWon() {
+    return FaceWon;
+}
+
+Texture2D Sprite::GetFaceLost() {
+    return FaceLost;
 }

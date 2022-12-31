@@ -14,8 +14,6 @@ void Gameplay::Interact(Game *game) {
     const auto [table_x, table_y] =
         table.GetCoordsFromPos(GetMouseX(), GetMouseY());
     if(table_x == -1 || table_y == -1) return;
-    //Cell &cell = ;
-
 
     if(IsMouseButtonPressed(MOUSE_BUTTON_LEFT)) {
         int reveal_value = table.RevealCell(table_x, table_y, first_click);
@@ -33,7 +31,7 @@ void Gameplay::Interact(Game *game) {
                     }
                 }
             }
-
+            table.CalculateNumFlagged();
         }
     } else if(IsMouseButtonPressed(MOUSE_BUTTON_RIGHT)) {
         table.GetCell(table_x, table_y).ToggleFlagged();
@@ -41,26 +39,37 @@ void Gameplay::Interact(Game *game) {
     }
 }
 
+bool Gameplay::DrawFrame() {
+    ClearBackground(WHITE);
+    DrawTexture(sprite.GetBackground(), 0, 0, WHITE);
+
+    int num_displayed_bomb_unrevealed = table.GetNumBomb() - table.GetNumFlagged();
+    if(game_state != GameState::Playing) num_displayed_bomb_unrevealed = 0;
+
+    DrawCounter(num_displayed_bomb_unrevealed, kCounterBomb_x, kCounterBom_y);
+    DrawCounter(time_elapsed, kCounterTime_x, kCounterTime_y);
+
+    return DrawFace();
+}
+
 void Gameplay::Draw(Game *game) {
+    bool playing = false;
+    if(game_state != GameState::Won &&
+        game_state != GameState::Lost) {
+        playing = true;
+    }
+    if(playing) {
+        game_state = GameState::Playing;
+    }
+
     UpdateFrameCount();
     /* */
-    ClearBackground(LIGHTGRAY);
-    DrawTexture(sprite.GetBackground(), 0, 0, WHITE);
     
-    //DrawFrame();
-
+    if(DrawFrame()) {
+        if(playing) game_state = GameState::Paused;
+        game->ScreenToIngameMenu();
+    }
     table.DrawTable();
-
-    DrawCounter(table.GetNumBomb() - table.GetNumFlagged(), kCounterBomb_x, kCounterBom_y);
-    DrawCounter(time_elapsed, kCounterTime_x, kCounterTime_y);
-    
-    /*for(int i=1;i<=15;i++) {
-        for(int j=1;j<=15;j++) {
-            DrawTexture(sprite.GetBombCell(),
-                            200 + j*31, 150 + i*31, WHITE);
-
-        }
-    }*/
 }
 
 void Gameplay::Initialize() {
@@ -76,6 +85,10 @@ void Gameplay::Start(int width, int height, int mines) {
 }
 
 Gameplay::Gameplay() {
+}
+
+Table& Gameplay::GetTable() {
+    return table;
 }
 
 void Gameplay::UpdateFrameCount() {
@@ -96,21 +109,49 @@ void Gameplay::DrawCounter(int value, int x, int y) {
         for(int i=0;i<3;i++) {
             counterNumberTexture[i] = sprite.GetCounterUndefined();
         }
+    } else {
+        int hundred = value / 100;
+        int tenth = (value - hundred * 100) / 10;
+        int unit = value % 10;
+
+        counterNumberTexture[0] = sprite.GetCounterNumber(hundred);
+        counterNumberTexture[1] = sprite.GetCounterNumber(tenth);
+        counterNumberTexture[2] = sprite.GetCounterNumber(unit);
     }
-    int hundred = value / 100;
-    int tenth = (value - hundred * 100) / 10;
-    int unit = value % 10;
-
-    counterNumberTexture[0] = sprite.GetCounterNumber(hundred);
-    counterNumberTexture[1] = sprite.GetCounterNumber(tenth);
-    counterNumberTexture[2] = sprite.GetCounterNumber(unit);
-
 
     for(int i=0;i<3;i++) {
         DrawTexture(counterNumberTexture[i],
             x + i * (kCounterWidth),
             y,
-            GRAY
+            WHITE
         );
     }
+}
+
+bool Gameplay::DrawFace() {
+    Texture2D Face;
+    switch(game_state) {
+        case GameState::Playing:
+            Face = sprite.GetFaceNeutral();
+        break;
+        case GameState::Paused:
+            Face = sprite.GetFaceNeutralClicked();
+        break;
+        case GameState::Won:
+            Face = sprite.GetFaceWon();
+        break;
+        case GameState::Lost:
+            Face = sprite.GetFaceLost();
+        break;
+        default: break;
+    }
+    bool face_clicked = GuiButton({kFace_x, kFace_y, 48, 48}, "");
+    DrawTexture(Face,
+        kFace_x,
+        kFace_y,
+        WHITE
+    );
+
+
+    return face_clicked;
 }
