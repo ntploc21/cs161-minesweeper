@@ -62,6 +62,7 @@ void GameSelectionScreen::DrawCustomScreen(Game *game) {
     if(back_selected) {
         BackToMainSelection();
     } else if(play_selected) {
+        custom_mode = false;
         game->ScreenToGameplay(custom_board_width,
                                 custom_board_height,
                                 custom_board_mines);
@@ -85,6 +86,6 @@ GameSelectionScreen::GameSelectionScreen() {
 
 }
 
-bool GameSelectionScreen::SetIngame(bool _in_game) {
+void GameSelectionScreen::SetIngame(bool _in_game) {
     in_game = _in_game;
 }

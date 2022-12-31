@@ -65,7 +65,7 @@ public:
 
     GameSelectionScreen();
 
-    bool SetIngame(bool _in_game);
+    void SetIngame(bool _in_game);
 };
 
 #endif // GAME_SELECTION_SCREEN_H

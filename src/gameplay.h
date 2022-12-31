@@ -25,7 +25,7 @@ private:
     const int kFace_y = 19;
 
     /* */
-    GameState game_state;
+    GameState game_state = GameState::Lost;
 
     int frame_counter;
     int time_elapsed;
