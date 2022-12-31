@@ -5,6 +5,8 @@
 #include "sprite.h"
 #include "table.h"
 
+#include <string>
+
 enum class GameState {
     Playing,
     Paused,
@@ -29,6 +31,7 @@ private:
 
     int frame_counter;
     int time_elapsed;
+    int score;
     /* */
 
     Table table;
@@ -36,19 +39,38 @@ private:
 
     bool first_click = 1;
 
-    void UpdateFrameCount();
+
+    /* */
 
     const int kCounterWidth = 24;
     const int kCounterHeight = 44;
 
     bool DrawFace();
     void DrawCounter(int value, int x, int y);
+    
+    void UpdateFrameCount();
+
+    /* */
+    Font font;
+    const std::string kMessagesTitleWon = "Congratulation! You win.";
+    const std::string kMessagesTitleLost = "Oops... try again";
+
+    const int kMessagesTitlePos_x = 1005;
+    const int kMessagesTitlePos_y = 190;
+
+    const int kMessagesScorePos_x = 1010;
+    const int kMessagesScorePos_y = 205;
+
+    const int kMessagesTimePos_x = 1010;
+    const int kMessagesTimePos_y = 217;
 public:
     Table& GetTable();
 
     void Interact(Game *game);
 
     bool DrawFrame();
+    void DrawMessages();
+
     void Draw(Game *game);
 
     Gameplay();

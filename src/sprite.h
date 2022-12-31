@@ -6,7 +6,7 @@
 
 class Sprite {
 private:
-    const char backgroundPath[100] = "assets/background.png";
+    const char backgroundPath[100] = "assets/background2.png";
     Image image_background;
     Texture2D background_texture;
     

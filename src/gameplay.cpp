@@ -32,6 +32,7 @@ void Gameplay::Interact(Game *game) {
                 }
             }
             table.CalculateNumFlagged();
+            score = time_elapsed * 60 + frame_counter;
         }
     } else if(IsMouseButtonPressed(MOUSE_BUTTON_RIGHT)) {
         table.GetCell(table_x, table_y).ToggleFlagged();
@@ -42,6 +43,7 @@ void Gameplay::Interact(Game *game) {
 bool Gameplay::DrawFrame() {
     ClearBackground(WHITE);
     DrawTexture(sprite.GetBackground(), 0, 0, WHITE);
+    DrawMessages();
 
     int num_displayed_bomb_unrevealed = table.GetNumBomb() - table.GetNumFlagged();
     if(game_state != GameState::Playing) num_displayed_bomb_unrevealed = 0;
@@ -50,6 +52,31 @@ bool Gameplay::DrawFrame() {
     DrawCounter(time_elapsed, kCounterTime_x, kCounterTime_y);
 
     return DrawFace();
+}
+
+void Gameplay::DrawMessages() {
+    if(game_state == GameState::Playing ||
+        game_state == GameState::Paused) return;
+
+    std::string messagesTitle;
+    std::string scoreMessage;
+    std::string timeMessage;
+
+    if(game_state == GameState::Won) {
+        messagesTitle = kMessagesTitleWon;
+    } else if(game_state == GameState::Lost) {
+        messagesTitle = kMessagesTitleLost;
+    }
+
+    DrawTextEx(font, messagesTitle.c_str(), {(float)kMessagesTitlePos_x, (float)kMessagesTitlePos_y}, 14, 0.3, BLACK);
+    std::string time = std::to_string(time_elapsed) + "." + std::to_string(frame_counter * 100 / 60);
+
+    scoreMessage = "Score: " + std::to_string(score);
+    timeMessage = "Time: " + time + " sec";
+    
+    DrawTextEx(font, timeMessage.c_str(), {(float)kMessagesTimePos_x, (float)kMessagesTimePos_y}, 14, 0.3, BLACK);
+    
+    DrawTextEx(font, scoreMessage.c_str(), {(float)kMessagesScorePos_x, (float)kMessagesScorePos_y}, 14, 0.3, BLACK);
 }
 
 void Gameplay::Draw(Game *game) {
@@ -74,14 +101,17 @@ void Gameplay::Draw(Game *game) {
 
 void Gameplay::Initialize() {
     sprite.Initialize();
+    font = LoadFont("assets/carme-regular.ttf");
 }
 
 void Gameplay::Start(int width, int height, int mines) {
     game_state = GameState::Playing;
     table = Table(width, height, mines, &sprite);
+    first_click = 1;
 
     time_elapsed = 0;
     frame_counter = 0;
+    score = 0;
 }
 
 Gameplay::Gameplay() {
