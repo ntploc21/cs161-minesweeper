@@ -29,7 +29,7 @@ void GameplayMenuScreen::Draw(Game *game) {
     } else if(new_game_selected) {
         game->ScreenToGameSelection(true);
     } else if(leader_board_selected) {
-        
+        game->ScreenToLeaderboard(true);
     } else if(to_menu_selected) {
         /* save game here ...*/
         game->SaveCurrentGame();

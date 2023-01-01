@@ -1,7 +1,10 @@
 #include "config.h"
 
+#include "gameplay.h"
+
 #include <fstream>
 #include <sstream>
+#include <algorithm>
 
 #include <iostream>
 
@@ -134,6 +137,9 @@ bool Config::ReadConfigGameAndReCreate(Gameplay &gameplay) {
                 >> frames
                 >> game_state_;
 
+    if(board_width < 3 ||
+        board_height < 3) return false;
+
     /*std::cout << board_width << " "
             << board_height << " "
             << time_elapsed <<" "
@@ -172,4 +178,85 @@ bool Config::ReadConfigGameAndReCreate(Gameplay &gameplay) {
     return 1;
 }
 
-Config::Config() {}
+bool Config::WriteConfigHighScore(GameMode game_mode, int score) {
+    std::vector<int> *scores;
+    switch(game_mode) {
+        case GameMode::Beginner:
+            scores = &beginner_highscores;
+        break;
+        case GameMode::Intermediate:
+            scores = &intermediate_highscores;
+        break;
+        case GameMode::Expert:
+            scores = &expert_highscores;
+        break;
+        default: return false;
+        break;
+    }
+    scores->push_back(score);
+    std::sort(scores->begin(), scores->end());
+    scores->resize(kNumHighscoreSaved);
+    
+    WriteConfigHighScore();
+
+    return (scores->back() >= score);
+}
+
+void Config::WriteConfigHighScore() {
+    std::ofstream score_file(kHighScorePath);
+    if(!score_file.is_open()) {
+        std::cout << "[Config Error] <Write> Cannot load file config high score." << std::endl;
+        return;
+    }
+
+    for(int score:beginner_highscores) score_file << score << "\n";
+    for(int score:intermediate_highscores) score_file << score << "\n";
+    for(int score:expert_highscores) score_file << score << "\n";
+
+    score_file.close();
+}
+
+void Config::LoadConfigHighScore() {
+    std::ifstream score_file(kHighScorePath);
+    if(!score_file.is_open()) {
+        std::cout << "[Config Error] <Read> Cannot load file config high score." << std::endl;
+        return;
+    }
+
+    auto ReadInt = [&] () -> int {
+        if(score_file.eof()) return 0;
+        int num;
+        score_file >> num;
+        return num;
+    };
+
+    for(int &score:beginner_highscores) score = ReadInt();
+    for(int &score:intermediate_highscores) score = ReadInt();
+    for(int &score:expert_highscores) score = ReadInt();
+
+    score_file.close();
+}
+
+std::vector<int> Config::GetBeginnerHighScores() {
+    return beginner_highscores;
+}
+
+std::vector<int> Config::GetIntermediateHighScores() {
+    return intermediate_highscores;
+}
+
+std::vector<int> Config::GetExpertHighScores() {
+    return expert_highscores;
+}
+
+Config::Config():
+    beginner_highscores(kNumHighscoreSaved),
+    intermediate_highscores(kNumHighscoreSaved),
+    expert_highscores(kNumHighscoreSaved)
+{
+    for(int &score:beginner_highscores)  score = kInfiniteScore;
+    for(int &score:intermediate_highscores) score = kInfiniteScore;
+    for(int &score:expert_highscores) score = kInfiniteScore;
+    LoadConfigHighScore();
+
+}

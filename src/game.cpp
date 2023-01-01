@@ -10,9 +10,12 @@ void Game::InitGame() {
     InitWindow(global::kScreenWidth, global::kScreenHeight, "CS161 - Minesweeper");
     SetTargetFPS(global::kFramesPerSecond);
     gameplay.Initialize();
+    gameplay.SetConfig(&config);
+    leaderboard_screen.SetConfig(&config);
 }
 
 void Game::EndGame() {
+    config.WriteConfigGame(gameplay);
     closed = true;
 }
 
@@ -58,6 +61,11 @@ void Game::ScreenToIngameMenu() {
     screen = &gameplay_menu_screen;
 }
 
+void Game::ScreenToLeaderboard(bool in_game = false) {
+    leaderboard_screen.SetIngame(in_game);
+    screen = &leaderboard_screen;
+}
+
 Gameplay& Game::GetGameplay() {
     return gameplay;
 }
@@ -71,6 +79,7 @@ void Game::LoadPreviousGame() {
         ScreenToGameplay();
     }
 }
+
 //
 
 Game::Game() {

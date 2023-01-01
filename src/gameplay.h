@@ -4,19 +4,17 @@
 #include "screen.h"
 #include "sprite.h"
 #include "table.h"
+#include "config.h"
 
 #include <string>
 
-enum class GameState {
-    Playing,
-    Paused,
-    Won,
-    Lost
-};
+#include "game_state.h"
 
 class Gameplay : public Screen {
 private:
     /* */
+    Config *config;
+
     const int kCounterTime_x = 1100;
     const int kCounterTime_y = 20;
     
@@ -39,7 +37,7 @@ private:
 
     bool first_click = 1;
 
-
+    GameMode GetGameMode();
     /* */
 
     const int kCounterWidth = 24;
@@ -64,6 +62,8 @@ private:
     const int kMessagesTimePos_x = 1010;
     const int kMessagesTimePos_y = 217;
 public:
+    void SetConfig(Config *config);
+
     Table& GetTable();
 
     void Interact(Game *game);

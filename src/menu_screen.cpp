@@ -26,7 +26,7 @@ void MenuScreen::Draw(Game *game) {
     } else if(continue_selected) {
         game->LoadPreviousGame();
     } else if(leader_board_selected) {
-        
+        game->ScreenToLeaderboard(false);
     } else if(quit_selected) {
         game->EndGame();
     }

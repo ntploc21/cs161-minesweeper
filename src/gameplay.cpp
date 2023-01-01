@@ -8,6 +8,32 @@
 
 #include <iostream>
 
+GameMode Gameplay::GetGameMode() {
+    int board_width = table.GetWidth();
+    int board_height = table.GetHeight();
+    int mines = table.GetNumBomb();
+
+    if(board_width == global::kBeginnerTableWidth &&
+        board_height == global::kBeginnerTableHeight &&
+        mines == global::kBeginnerTableMines) {
+        return GameMode::Beginner;
+    }
+    
+    if(board_width == global::kIntermediateTableWidth &&
+        board_height == global::kIntermediateTableHeight &&
+        mines == global::kIntermediateTableMines) {
+        return GameMode::Intermediate;
+    }
+
+    if(board_width == global::kExpertTableWidth &&
+        board_height == global::kExpertTableHeight &&
+        mines == global::kExpertTableMines) {
+        return GameMode::Expert;
+    }
+
+    return GameMode::Undefined;
+}
+
 void Gameplay::Interact(Game *game) {
     if(game_state != GameState::Playing) return;
 
@@ -33,6 +59,8 @@ void Gameplay::Interact(Game *game) {
             }
             table.CalculateNumFlagged();
             score = time_elapsed * 60 + frame_counter;
+
+            config->WriteConfigHighScore(GetGameMode(), score);
         }
     } else if(IsMouseButtonPressed(MOUSE_BUTTON_RIGHT)) {
         table.GetCell(table_x, table_y).ToggleFlagged();
@@ -234,4 +262,8 @@ bool Gameplay::DrawFace() {
 
 
     return face_clicked;
+}
+
+void Gameplay::SetConfig(Config *config) {
+    this->config = config;
 }
