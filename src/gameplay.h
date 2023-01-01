@@ -77,6 +77,17 @@ public:
 
     void Start(int width, int height, int mines);
     void Initialize();
+
+    std::pair<int, int> GetTimePlayed();
+    GameState GetGameState();
+
+    void RestoreGame(int width,
+                    int height,
+                    int prev_time_elapsed,
+                    int prev_frame_counter,
+                    GameState prev_game_state,
+                    std::vector<int> board_value,
+                    std::vector<CellState> board_state);
 };
 
 #endif // GAMEPLAY_H

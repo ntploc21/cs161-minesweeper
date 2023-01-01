@@ -61,6 +61,16 @@ void Game::ScreenToIngameMenu() {
 Gameplay& Game::GetGameplay() {
     return gameplay;
 }
+
+void Game::SaveCurrentGame() {
+    config.WriteConfigGame(gameplay);
+}
+
+void Game::LoadPreviousGame() {
+    if(config.ReadConfigGameAndReCreate(gameplay)) {
+        ScreenToGameplay();
+    }
+}
 //
 
 Game::Game() {

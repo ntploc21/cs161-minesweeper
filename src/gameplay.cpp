@@ -117,11 +117,61 @@ void Gameplay::Start(int width, int height, int mines) {
 Gameplay::Gameplay() {
 }
 
+std::pair<int, int> Gameplay::GetTimePlayed() {
+    return {time_elapsed, frame_counter};
+}
+
+GameState Gameplay::GetGameState() {
+    return game_state;
+}
+
 Table& Gameplay::GetTable() {
     return table;
 }
 
+void Gameplay::RestoreGame(int width,
+                        int height,
+                        int prev_time_elapsed,
+                        int prev_frame_counter,
+                        GameState prev_game_state,
+                        std::vector<int> board_value,
+                        std::vector<CellState> board_state) {
+    game_state = prev_game_state;
+    first_click = 1;
+    int mines = 0;
+    time_elapsed = prev_time_elapsed;
+    frame_counter = prev_frame_counter;
+    if(game_state == GameState::Won) {
+        score = time_elapsed * 60 + frame_counter;
+    }
+
+    for(int i=0;i<width*height;i++) {
+        mines+= (board_value[i] == Cell::kBombCellValue ||
+                board_value[i] == Cell::kExplodedCellValue);
+        first_click&= (board_state[i] == CellState::Closed);
+    }
+
+    table = Table(width, height, mines, &sprite);
+    for(int i=0;i<width*height;i++) {
+        int x = i % width;
+        int y = i / width;
+        table.GetCell(x, y).SetValue(board_value[i]);
+        table.GetCell(x, y).SetSprite(&sprite);
+        switch(board_state[i]) {
+            case CellState::Opened:
+                table.GetCell(x, y).Reveal();
+            break;
+            case CellState::Flagged:
+                table.GetCell(x, y).ToggleFlagged();
+            break;
+            case CellState::Closed: break;
+        }
+    }
+
+}
+
 void Gameplay::UpdateFrameCount() {
+    if(first_click) return;
     if(game_state == GameState::Playing) {
         frame_counter++;
     }

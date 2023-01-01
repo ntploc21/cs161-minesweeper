@@ -32,6 +32,7 @@ void GameplayMenuScreen::Draw(Game *game) {
         
     } else if(to_menu_selected) {
         /* save game here ...*/
+        game->SaveCurrentGame();
 
         game->ScreenToMenu();
     }
