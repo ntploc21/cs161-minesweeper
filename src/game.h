@@ -32,7 +32,6 @@ public:
     void ScreenToGameSelection(bool in_game);
     void ScreenToGameplay(int width, int height, int mines);
     void ScreenToGameplay();
-    void ScreenToSettings();
     void ScreenToIngameMenu();
     void ScreenToLeaderboard(bool in_game);
 

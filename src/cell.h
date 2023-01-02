@@ -16,8 +16,8 @@ private:
     int value;
     CellState cell_state;
 
-    int screen_pos_x;
-    int screen_pos_y;
+    int screen_pos_x = 0;
+    int screen_pos_y = 0;
 public:
     static constexpr int kCellSize = 30;
     static constexpr int kBombCellValue = -1;
